@@ -1,0 +1,24 @@
+---
+import clsx from 'clsx'
+
+export interface Props {
+  href?: string
+  text: string
+  isFirst?: boolean
+  isLast?: boolean
+}
+
+const { href, text, isFirst, isLast } = Astro.props
+
+const liInnerClassName = 'opacity-70 capitalize'
+---
+<li class="inline">
+  {href ? (
+    <a class={clsx(liInnerClassName, !isLast && 'hover:opacity-100')} href={href}>
+      {text}
+    </a>
+  ) : (
+    <span class={clsx(liInnerClassName, !isFirst && isLast && 'lowercase')} aria-current={isLast ? 'page' : undefined}>{text}</span>
+  )}
+  {!isLast && <span class={liInnerClassName} aria-hidden="true">&#62;</span>}
+</li>
